@@ -463,16 +463,10 @@ public abstract class FastBoardBase<T> {
                         sendScorePacket(i - 1, ScoreboardAction.REMOVE);
                         oldLines.remove(0);
                     }
-                } else {
+                } else if (!VersionType.V1_20_3.isCurrentAtLeast()) {
                     for (int i = oldLinesCopy.size(); i < linesSize; i++) {
-                        if (VersionType.V1_20_3.isCurrentAtLeast()) {
-                            sendModernScorePacket(i, ScoreboardAction.CHANGE);
-                            oldLines.add(0, getLineByScore(i));
-                            oldScores.add(0, getLineByScore(this.scores, i));
-                        } else {
-                            sendScorePacket(i, ScoreboardAction.CHANGE);
-                            sendTeamPacket(i, TeamMode.CREATE, null, null);
-                        }
+                        sendScorePacket(i, ScoreboardAction.CHANGE);
+                        sendTeamPacket(i, TeamMode.CREATE, null, null);
                     }
                 }
             }
