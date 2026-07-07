@@ -148,8 +148,6 @@ public abstract class FastBoardBase<T> {
             if (VersionType.V1_20_3.isCurrentAtLeast()) {
                 Class<?> numberFormatClass = FastReflection.nmsClass("network.chat.numbers", "NumberFormat");
                 OBJECTIVE = lookup.unreflectConstructor(objectiveClass.getConstructor(scoreboardClass, String.class, objectiveCriteriaClass, CHAT_COMPONENT_CLASS, objectiveRenderTypeClass, boolean.class, numberFormatClass));
-                PACKET_SB_OBJ = lookup.unreflectConstructor(packetSbObjClass.getConstructor(objectiveClass, int.class));
-                PACKET_SB_DISPLAY_OBJ = lookup.unreflectConstructor(packetSbDisplayObjClass.getConstructor(DISPLAY_SLOT_TYPE, objectiveClass));
 
                 Class<?> blankFormatClass = FastReflection.nmsClass("network.chat.numbers", "BlankFormat");
                 Class<?> fixedFormatClass = FastReflection.nmsClass("network.chat.numbers", "FixedFormat");
@@ -179,8 +177,6 @@ public abstract class FastBoardBase<T> {
                     MethodType scoreType = MethodType.methodType(void.class, enumSbAction, String.class, String.class, int.class);
                     packetSbSetScore = lookup.findConstructor(packetSbScoreClass, scoreType);
                     OBJECTIVE = lookup.unreflectConstructor(objectiveClass.getConstructor(scoreboardClass, String.class, objectiveCriteriaClass, CHAT_COMPONENT_CLASS, objectiveRenderTypeClass));
-                    PACKET_SB_OBJ = lookup.unreflectConstructor(packetSbObjClass.getConstructor(objectiveClass, int.class));
-                    PACKET_SB_DISPLAY_OBJ = lookup.unreflectConstructor(packetSbDisplayObjClass.getConstructor(displaySlotEnum.orElse(int.class), objectiveClass));
                 } else {
                     packetSbSetScore = lookup.findConstructor(packetSbScoreClass, MethodType.methodType(void.class));
                     if (VersionType.V1_13.isCurrentAtLeast()) {
@@ -188,8 +184,6 @@ public abstract class FastBoardBase<T> {
                     } else {
                         OBJECTIVE = lookup.unreflectConstructor(objectiveClass.getConstructor(scoreboardClass, String.class, objectiveCriteriaClass));
                     }
-                    PACKET_SB_OBJ = lookup.unreflectConstructor(packetSbObjClass.getConstructor(objectiveClass, int.class));
-                    PACKET_SB_DISPLAY_OBJ = lookup.unreflectConstructor(packetSbDisplayObjClass.getConstructor(int.class, objectiveClass));
                 }
 
                 for (Class<?> clazz : Arrays.asList(packetSbScoreClass, packetSbTeamClass, sbTeamClass, playerTeamClass, objectiveClass)) {
@@ -206,6 +200,8 @@ public abstract class FastBoardBase<T> {
                 }
             }
 
+            PACKET_SB_OBJ = lookup.unreflectConstructor(packetSbObjClass.getConstructor(objectiveClass, int.class));
+            PACKET_SB_DISPLAY_OBJ = lookup.unreflectConstructor(packetSbDisplayObjClass.getConstructor(DISPLAY_SLOT_TYPE, objectiveClass));
             PACKET_SB_SET_SCORE = packetSbSetScore;
             PACKET_SB_RESET_SCORE = packetSbResetScore;
             PACKET_SB_TEAM = packetSbTeam;
