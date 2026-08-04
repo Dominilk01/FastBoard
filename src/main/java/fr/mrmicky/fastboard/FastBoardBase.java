@@ -472,10 +472,8 @@ public abstract class FastBoardBase<T> {
                 boolean isNewFormatDifferentFromOld = !Objects.equals(getLineByScore(oldScores, i), getLineByScore(this.scores, i));
                 if (VersionType.V1_20_3.isCurrentAtLeast() && (isNewTextDifferentFromOld || isNewFormatDifferentFromOld)) {
                     sendModernScorePacket(i, ScoreboardAction.CHANGE);
-                } else {
-                    if (isNewTextDifferentFromOld) {
-                        sendLineChange(i);
-                    }
+                } else if (isNewTextDifferentFromOld) {
+                    sendLineChange(i);
                 }
             }
         } catch (Throwable t) {
