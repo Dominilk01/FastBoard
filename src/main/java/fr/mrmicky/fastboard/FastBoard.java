@@ -133,10 +133,9 @@ public class FastBoard extends FastBoardBase<String> {
             suffix = suffix.substring(0, Math.min(maxLength, suffix.length()));
         }
 
-        if (VersionType.V1_20_3.isCurrentAtLeast()) {
+        if (hasCustomScores()) {
             sendModernScorePacket(score, ScoreboardAction.CHANGE);
         } else {
-            sendScorePacket(score, ScoreboardAction.CHANGE);
             sendTeamPacket(score, TeamMode.UPDATE, prefix, suffix);
         }
     }
@@ -169,5 +168,19 @@ public class FastBoard extends FastBoardBase<String> {
      */
     protected boolean hasLinesMaxLength() {
         return !VersionType.V1_13.isCurrentAtLeast();
+    }
+
+    /**
+     * Returns whether scoreboard lines should use the score as text.
+     * By default, this is true only on Minecraft 1.20.3 and higher.
+     * Override this method for compatibility with plugins that provide multi-version support.
+     * <p>
+     * If not overridden, with server above 1.20.3 and player under 1.20.3 will not see text lines.
+     * <p>
+     * example: {@code return Via.getAPI().getPlayerVersion(getPlayer()) >= ProtocolVersion.v1_20_3.getVersion();}
+     * @return true should use new score as text, false for legacy team
+     */
+    protected boolean hasCustomScores() {
+        return VersionType.V1_20_3.isCurrentAtLeast();
     }
 }

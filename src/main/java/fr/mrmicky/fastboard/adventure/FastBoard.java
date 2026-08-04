@@ -81,10 +81,9 @@ public class FastBoard extends FastBoardBase<Component> {
     protected void sendLineChange(int score) throws Throwable {
         Component line = getLineByScore(score);
 
-        if (VersionType.V1_20_3.isCurrentAtLeast()) {
+        if (hasCustomScores()) {
             sendModernScorePacket(score, ScoreboardAction.CHANGE);
         } else {
-            sendScorePacket(score, ScoreboardAction.CHANGE);
             sendTeamPacket(score, TeamMode.UPDATE, line, null);
         }
     }
@@ -114,5 +113,10 @@ public class FastBoard extends FastBoardBase<Component> {
     @Override
     protected Component emptyLine() {
         return Component.empty();
+    }
+
+    @Override
+    protected boolean hasCustomScores() {
+        return VersionType.V1_20_3.isCurrentAtLeast();
     }
 }
