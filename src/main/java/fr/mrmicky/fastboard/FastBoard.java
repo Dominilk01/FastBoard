@@ -169,11 +169,4 @@ public class FastBoard extends FastBoardBase<String> {
     protected boolean hasLinesMaxLength() {
         return !VersionType.V1_13.isCurrentAtLeast();
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    protected boolean hasCustomScores() {
-        return VersionType.V1_20_3.isCurrentAtLeast();
-    }
 }

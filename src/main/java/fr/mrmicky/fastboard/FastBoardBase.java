@@ -638,7 +638,9 @@ public abstract class FastBoardBase<T> {
      * example: {@code return Via.getAPI().getPlayerVersion(getPlayer()) >= ProtocolVersion.v1_20_3.getVersion();}
      * @return true should use new score as text, false for legacy team
      */
-    protected abstract boolean hasCustomScores();
+    protected boolean hasCustomScores() {
+        return VersionType.V1_20_3.isCurrentAtLeast();
+    }
 
     private void checkLineNumber(int line, boolean checkInRange, boolean checkMax) {
         if (line < 0) {

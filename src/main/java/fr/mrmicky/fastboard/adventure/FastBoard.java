@@ -114,12 +114,4 @@ public class FastBoard extends FastBoardBase<Component> {
     protected Component emptyLine() {
         return Component.empty();
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    protected boolean hasCustomScores() {
-        return VersionType.V1_20_3.isCurrentAtLeast();
-    }
 }
