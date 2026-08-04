@@ -44,7 +44,7 @@ import java.util.stream.Stream;
  * The project is on <a href="https://github.com/MrMicky-FR/FastBoard">GitHub</a>.
  *
  * @author MrMicky
- * @version 2.2.0
+ * @version 2.2.1
  */
 public abstract class FastBoardBase<T> {
 
