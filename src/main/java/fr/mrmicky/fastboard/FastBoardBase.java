@@ -628,6 +628,16 @@ public abstract class FastBoardBase<T> {
 
     protected abstract T emptyLine();
 
+    /**
+     * Returns whether scoreboard lines should use the score as text.
+     * By default, this is true only on Minecraft 1.20.3 and higher.
+     * Override this method for compatibility with plugins that provide multi-version support.
+     * <p>
+     * If not overridden, with server above 1.20.3 and player under 1.20.3 will not see text lines.
+     * <p>
+     * example: {@code return Via.getAPI().getPlayerVersion(getPlayer()) >= ProtocolVersion.v1_20_3.getVersion();}
+     * @return true should use new score as text, false for legacy team
+     */
     protected abstract boolean hasCustomScores();
 
     private void checkLineNumber(int line, boolean checkInRange, boolean checkMax) {
