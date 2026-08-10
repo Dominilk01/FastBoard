@@ -6,6 +6,9 @@
 
 Lightweight packet-based scoreboard API for Bukkit plugins, compatible with all Minecraft versions starting with 1.7.10.
 
+> [!WARNING]
+> If you're using ViaBackwards, please read the [ViaBackwards compatibility](#viabackwards-compatibility) section.
+
 > [!IMPORTANT]
 > To use FastBoard on a 1.8 server, the server must be on 1.8.8.
 
@@ -13,7 +16,7 @@ Lightweight packet-based scoreboard API for Bukkit plugins, compatible with all 
 
 * No flickering (without using a buffer)
 * Compatible with all Minecraft versions starting with 1.7.10
-* Small (around 750 lines of code with the Javadoc) and no dependencies
+* Small and no dependencies
 * Easy to use
 * Dynamic scoreboard size: you don't need to add/remove lines, you can directly give a string list (or array) to change all the lines
 * Everything is at the packet level, so it works with other plugins using scoreboard and/or teams
@@ -22,6 +25,7 @@ Lightweight packet-based scoreboard API for Bukkit plugins, compatible with all 
 * No character limit on 1.13 and higher
 * [RGB HEX colors support](#rgb-colors) on 1.16 and higher
 * [Custom number formatting](#custom-number-formatting) (including blank) for scores on 1.20.3 and higher
+* [Custom score compatibility](#custom-score-compatibility) for multi-version servers
 * [Adventure components support](#adventure-support)
 * Support for both Spigot and Mojang mappings
 
@@ -209,7 +213,9 @@ Passing a `null` value as a score will result in a reset to the default blank fo
 
 ## ViaBackwards compatibility
 
-When using ViaBackwards on a post-1.13 server with pre-1.13 clients, older clients
+### On server versions above 1.13 with clients pre 1.13
+
+On a post-1.13 server with pre-1.13 clients, older clients
 may receive incomplete lines. To solve this problem, you can override the `hasLinesMaxLength()` method and return `true` for older clients.
 For example, using the ViaVersion API:
 ```java
@@ -218,5 +224,23 @@ FastBoard board = new FastBoard(player) {
     public boolean hasLinesMaxLength() {
         return Via.getAPI().getPlayerVersion(getPlayer()) < ProtocolVersion.v1_13.getVersion(); // or just 'return true;'
     }
-});
+};
 ```
+
+### On server versions above 1.20.3 with clients pre 1.20.3
+
+
+On a post-1.20.3 server with pre-1.20.3 clients, older clients will receive empty lines.
+To solve this problem, you can override the `hasCustomScores()` method and return `false` for older clients.
+For example, using the ViaVersion API:
+
+```java
+FastBoard board = new FastBoard(player) {
+    @Override
+    public boolean hasCustomScores() {
+        return Via.getAPI().getPlayerVersion(getPlayer()) >= ProtocolVersion.v1_20_3.getVersion();
+    }
+};
+```
+
+Note: if you don't want to use the score system, you can force `hasCustomScores()` to return `false` for all players, and FastBoard will always use the legacy team-based line format, which is compatible with all versions.
