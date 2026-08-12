@@ -133,7 +133,7 @@ public class FastBoard extends FastBoardBase<String> {
             suffix = suffix.substring(0, Math.min(maxLength, suffix.length()));
         }
 
-        if (hasCustomScores()) {
+        if (VersionType.V1_20_3.isCurrentAtLeast() && hasCustomScores()) {
             sendModernScorePacket(score, ScoreboardAction.CHANGE);
         } else {
             sendTeamPacket(score, TeamMode.UPDATE, prefix, suffix);

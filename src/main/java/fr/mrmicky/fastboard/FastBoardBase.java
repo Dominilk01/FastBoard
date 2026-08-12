@@ -463,7 +463,7 @@ public abstract class FastBoardBase<T> {
             for (int i = 0; i < linesSize; i++) {
                 boolean isNewTextDifferentFromOld = !Objects.equals(getLineByScore(oldLines, i), getLineByScore(i));
                 boolean isNewFormatDifferentFromOld = !Objects.equals(getLineByScore(oldScores, i), getLineByScore(this.scores, i));
-                if (hasCustomScores() && (isNewTextDifferentFromOld || isNewFormatDifferentFromOld)) {
+                if (VersionType.V1_20_3.isCurrentAtLeast() && hasCustomScores() && (isNewTextDifferentFromOld || isNewFormatDifferentFromOld)) {
                     sendModernScorePacket(i, ScoreboardAction.CHANGE);
                 } else if (isNewTextDifferentFromOld) {
                     sendLineChange(i);
@@ -489,7 +489,7 @@ public abstract class FastBoardBase<T> {
         this.scores.set(line, score);
 
         try {
-            if (hasCustomScores()) {
+            if (VersionType.V1_20_3.isCurrentAtLeast() && hasCustomScores()) {
                 sendModernScorePacket(getScoreByLine(line), ScoreboardAction.CHANGE);
             }
         } catch (Throwable e) {
@@ -544,7 +544,7 @@ public abstract class FastBoardBase<T> {
             this.scores.set(i, newScores.get(i));
 
             try {
-                if (hasCustomScores()) {
+                if (VersionType.V1_20_3.isCurrentAtLeast() && hasCustomScores()) {
                     sendModernScorePacket(getScoreByLine(i), ScoreboardAction.CHANGE);
                 }
             } catch (Throwable e) {
@@ -600,7 +600,7 @@ public abstract class FastBoardBase<T> {
 
         try {
             for (int i = 0; i < this.lines.size(); i++) {
-                if (hasCustomScores()) {
+                if (VersionType.V1_20_3.isCurrentAtLeast() && hasCustomScores()) {
                     sendScorePacket(i, ScoreboardAction.REMOVE);
                 } else {
                     sendTeamPacket(i, TeamMode.REMOVE);
