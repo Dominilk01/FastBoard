@@ -25,7 +25,6 @@ Lightweight packet-based scoreboard API for Bukkit plugins, compatible with all 
 * No character limit on 1.13 and higher
 * [RGB HEX colors support](#rgb-colors) on 1.16 and higher
 * [Custom number formatting](#custom-number-formatting) (including blank) for scores on 1.20.3 and higher
-* [Custom score compatibility](#custom-score-compatibility) for multi-version servers
 * [Adventure components support](#adventure-support)
 * Support for both Spigot and Mojang mappings
 
