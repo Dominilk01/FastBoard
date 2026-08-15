@@ -639,7 +639,7 @@ public abstract class FastBoardBase<T> {
      * @return true should use new score as text, false for legacy team
      */
     protected boolean hasCustomScores() {
-        return VersionType.V1_20_3.isCurrentAtLeast();
+        return true;
     }
 
     private void checkLineNumber(int line, boolean checkInRange, boolean checkMax) {
