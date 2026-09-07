@@ -446,13 +446,13 @@ public abstract class FastBoardBase<T> {
 
                 if (oldLines.size() > linesSize) {
                     for (int i = oldLinesCopy.size(); i > linesSize; i--) {
-                        if (!hasCustomScores()) {
+                        if (!VersionType.V1_20_3.isCurrentAtLeast() || !hasCustomScores()) {
                             sendTeamPacket(i - 1, TeamMode.REMOVE);
                         }
                         sendScorePacket(i - 1, ScoreboardAction.REMOVE);
                         oldLines.remove(0);
                     }
-                } else if (!hasCustomScores()) {
+                } else if (!VersionType.V1_20_3.isCurrentAtLeast() || !hasCustomScores()) {
                     for (int i = oldLinesCopy.size(); i < linesSize; i++) {
                         sendScorePacket(i, ScoreboardAction.CHANGE);
                         sendTeamPacket(i, TeamMode.CREATE, null, null);
