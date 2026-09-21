@@ -6,10 +6,10 @@
 
 Lightweight packet-based scoreboard API for Bukkit plugins, compatible with all Minecraft versions starting with 1.7.10.
 
-> [!WARNING]
+> [!IMPORTANT]
 > If you're using ViaBackwards, please read the [ViaBackwards compatibility](#viabackwards-compatibility) section.
 
-> [!IMPORTANT]
+> [!NOTE]
 > To use FastBoard on a 1.8 server, the server must be on 1.8.8.
 
 ## Features
@@ -228,7 +228,6 @@ FastBoard board = new FastBoard(player) {
 
 ### On server versions above 1.20.3 with clients pre 1.20.3
 
-
 On a post-1.20.3 server with pre-1.20.3 clients, older clients will receive empty lines.
 To solve this problem, you can override the `hasCustomScores()` method and return `false` for older clients.
 For example, using the ViaVersion API:
@@ -242,4 +241,5 @@ FastBoard board = new FastBoard(player) {
 };
 ```
 
-Note: if you don't want to use the score system, you can force `hasCustomScores()` to return `false` for all players, and FastBoard will always use the legacy team-based line format, which is compatible with all versions.
+> [!NOTE]
+> If you don't want to use the score system, you can force `hasCustomScores()` to return `false` for all players, and FastBoard will always use the legacy team-based line format, which is compatible with all versions.
