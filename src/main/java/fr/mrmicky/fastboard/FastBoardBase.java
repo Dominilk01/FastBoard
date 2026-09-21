@@ -574,7 +574,7 @@ public abstract class FastBoardBase<T> {
     /**
      * Returns whether this FastBoard has been deleted.
      *
-     * @return true if the scoreboard is deleted
+     * @return {@code true} if the scoreboard is deleted
      */
     public boolean isDeleted() {
         return this.deleted;
@@ -629,14 +629,13 @@ public abstract class FastBoardBase<T> {
     protected abstract T emptyLine();
 
     /**
-     * Returns whether scoreboard lines should use the score as text.
-     * By default, this is true only on Minecraft 1.20.3 and higher.
-     * Override this method for compatibility with plugins that provide multi-version support.
+     * Returns whether scoreboard lines should use scores as text.
+     * Defaults to {@code true} on Minecraft 1.20.3+.
+     * Override for multi-version plugin compatibility.
      * <p>
-     * If not overridden, with server above 1.20.3 and player under 1.20.3 will not see text lines.
-     * <p>
-     * example: {@code return Via.getAPI().getPlayerVersion(getPlayer()) >= ProtocolVersion.v1_20_3.getVersion();}
-     * @return true should use new score as text, false for legacy team
+     * Without overriding, players below 1.20.3 will not see text lines on servers running 1.20.3+.
+     *
+     * @return {@code true} to use score text, {@code false} for legacy teams
      */
     protected boolean hasCustomScores() {
         return true;
